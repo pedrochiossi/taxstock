@@ -4,3 +4,4 @@ __pycache__/
 env/
 venv/
 /taxstock.egg-info/
+.idea/
