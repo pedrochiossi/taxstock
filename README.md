@@ -1,2 +1,6 @@
 # taxstock
-A simple CLI to calculate tax from stock operations
+A simple CLI application to calculate tax from capital gains of stock market operations.
+
+Developed in Python, following the technical challenge proposed by Nubank.
+
+
