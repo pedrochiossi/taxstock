@@ -3,11 +3,7 @@ from decimal import Decimal, ROUND_HALF_UP
 from typing import List
 
 from src.dto.operation_data import OperationDataDTO
-
-@dataclass(frozen=True)
-class Tax:
-    tax: Decimal
-
+from src.models.tax import Tax
 
 class TaxCalculator:
     """Calculates taxes on realized profits considering loss carryovers and exemptions."""
