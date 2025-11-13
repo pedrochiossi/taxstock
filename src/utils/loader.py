@@ -7,7 +7,7 @@ from src.dto.operation_data import OperationDataDTO
 
 
 def load_operation_data(portfolio: StockPortfolio, line: str) -> List[OperationDataDTO]:
-
+    zero = Decimal("0.00")
     operations = json.loads(line)
     data_list: List[OperationDataDTO] = []
 
@@ -20,7 +20,7 @@ def load_operation_data(portfolio: StockPortfolio, line: str) -> List[OperationD
         profit = portfolio.register_operation(operation)
         dto = OperationDataDTO(
             operation=operation,
-            profit=portfolio.total_profit,
+            profit=profit if profit is not None else zero,
             avg_price=portfolio.avg_price
         )
         data_list.append(dto)
