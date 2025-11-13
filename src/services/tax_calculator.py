@@ -1,4 +1,3 @@
-from dataclasses import dataclass
 from decimal import Decimal, ROUND_HALF_UP
 from typing import List
 
@@ -35,18 +34,18 @@ class TaxCalculator:
 
                 if taxable_profit <= 0:
                     self.accumulated_loss = abs(taxable_profit)
-                    taxes.append(Tax(self.ZERO))
+                    taxes.append(Tax(str(self.ZERO)))
                     continue
 
                 tax_value = (taxable_profit * self.TAX_RATE).quantize(
                     self.ZERO, rounding=self.ROUND_MODE
                 )
                 self.accumulated_loss = self.ZERO
-                taxes.append(Tax(tax_value))
+                taxes.append(Tax(str(tax_value)))
             else:
                 if data.profit < 0:
                     self.accumulated_loss += abs(data.profit)
-                taxes.append(Tax(self.ZERO))
+                taxes.append(Tax(str(self.ZERO)))
 
         return taxes
 
