@@ -21,16 +21,20 @@ class StockPortfolio:
         return self._register_sell(op)
 
     def _register_buy(self, op: StockOperation) -> None:
-        total_cost = self.avg_price * self.quantity + op.unit_cost * op.quantity
+        self.avg_price = self._calc_rounded_average_price(op)
         self.quantity += op.quantity
-        if self.quantity > 0:
-            self.avg_price = (total_cost / self.quantity).quantize(Decimal("0.01"), rounding=self.ROUND_MODE)
 
     def _register_sell(self, op: StockOperation) -> Decimal:
         profit = (op.unit_cost - self.avg_price) * op.quantity
         self.quantity -= op.quantity
+
         if profit >= 0:
             self.total_profit += profit
         else:
             self.total_loss += abs(profit)
         return profit
+
+    def _calc_rounded_average_price(self, op: StockOperation) -> Decimal:
+        total_cost = (self.avg_price * self.quantity) + op.total_value
+        average = total_cost / (self.quantity + op.quantity)
+        return average.quantize(Decimal("0.00"), rounding=self.ROUND_MODE)

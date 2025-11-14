@@ -4,4 +4,4 @@ from decimal import Decimal
 
 @dataclass(frozen=True)
 class Tax:
-    tax: str
+    tax: float

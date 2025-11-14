@@ -7,7 +7,6 @@ from src.utils.loader import load_operation_data
 
 
 def read_input() -> str:
-    """Reads operation data either interactively or from piped stdin."""
     if sys.stdin.isatty():
         # Interactive mode
         print(
@@ -32,18 +31,15 @@ def main() -> None:
         print("No input provided. Exiting.")
         return
 
-    portfolio = StockPortfolio()
-    tax_calculator = TaxCalculator()
-
     for line in user_input.splitlines():
         line = line.strip()
         if not line:
             continue
+        portfolio = StockPortfolio()
+        tax_calculator = TaxCalculator()
 
         operations_data_list = load_operation_data(portfolio, line)
-
         taxes = tax_calculator.compute(operations_data_list)
-
         output = [asdict(tax) for tax in taxes]
 
-        print("Calculated Taxes: ",json.dumps(output))
+        print(json.dumps(output, separators=(",",": ")))

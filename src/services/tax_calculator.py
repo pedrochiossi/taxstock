@@ -10,6 +10,7 @@ class TaxCalculator:
     TAX_RATE: Decimal = Decimal("0.20")
     EXEMPT_LIMIT: Decimal = Decimal("20000.00")
     ZERO: Decimal = Decimal("0.00")
+    ZERO_TAX: Tax = Tax(0.0)
     ROUND_MODE = ROUND_HALF_UP
 
     def __init__(self) -> None:
@@ -34,18 +35,18 @@ class TaxCalculator:
 
                 if taxable_profit <= 0:
                     self.accumulated_loss = abs(taxable_profit)
-                    taxes.append(Tax(str(self.ZERO)))
+                    taxes.append(self.ZERO_TAX)
                     continue
 
                 tax_value = (taxable_profit * self.TAX_RATE).quantize(
-                    self.ZERO, rounding=self.ROUND_MODE
+                    Decimal("0.0"), rounding=self.ROUND_MODE
                 )
                 self.accumulated_loss = self.ZERO
-                taxes.append(Tax(str(tax_value)))
+                taxes.append(Tax(float(tax_value)))
             else:
-                if data.profit < 0:
+                if data.profit is not None and data.profit < 0:
                     self.accumulated_loss += abs(data.profit)
-                taxes.append(Tax(str(self.ZERO)))
+                taxes.append(self.ZERO_TAX)
 
         return taxes
 
