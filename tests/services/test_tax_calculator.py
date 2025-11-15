@@ -11,7 +11,7 @@ def calculator() -> TaxCalculator:
     return TaxCalculator()
 
 
-def test_buy_operations_have_no_tax(calculator: TaxCalculator):
+def test_buy_operations_have_no_tax(calculator):
     operations = [
         create_operation_data("buy", 10.0, 100, 0.0, 10.0),
         create_operation_data("buy", 15.0, 200, 0.0, 12.5),
@@ -21,28 +21,28 @@ def test_buy_operations_have_no_tax(calculator: TaxCalculator):
     assert all(tax == Tax(0.0) for tax in result)
 
 
-def test_sell_below_exempt_limit_has_no_tax(calculator: TaxCalculator):
+def test_sell_below_exempt_limit_has_no_tax(calculator):
     operations = [create_operation_data("sell", 15.0, 1000, 5000.0, 10.0)]
     result = calculator.compute(operations)
     
     assert result[0] == Tax(0.0)
 
 
-def test_sell_above_exempt_limit_with_profit_calculates_tax(calculator: TaxCalculator):
+def test_sell_above_exempt_limit_with_profit_calculates_tax(calculator):
     operations = [create_operation_data("sell", 25.0, 1000, 5000.0, 20.0)]
     result = calculator.compute(operations)
     
     assert result[0] == Tax(1000.0)
 
 
-def test_loss_is_accumulated(calculator: TaxCalculator):
+def test_loss_is_accumulated(calculator):
     operations = [create_operation_data("sell", 5.0, 1000, -5000.0, 10.0)]
     calculator.compute(operations)
     
     assert calculator.accumulated_loss == Decimal("5000.0")
 
 
-def test_accumulated_loss_offsets_future_profit(calculator: TaxCalculator):
+def test_accumulated_loss_offsets_future_profit(calculator):
     operations = [
         create_operation_data("sell", 5.0, 1000, -5000.0, 10.0),
         create_operation_data("sell", 25.0, 1000, 5000.0, 20.0)
@@ -54,7 +54,7 @@ def test_accumulated_loss_offsets_future_profit(calculator: TaxCalculator):
     assert calculator.accumulated_loss == Decimal("0.0")
 
 
-def test_partial_loss_offset(calculator: TaxCalculator):
+def test_partial_loss_offset(calculator):
     operations = [
         create_operation_data("sell", 5.0, 1000, -3000.0, 10.0),
         create_operation_data("sell", 25.0, 1000, 5000.0, 20.0)
@@ -64,7 +64,7 @@ def test_partial_loss_offset(calculator: TaxCalculator):
     assert result[1] == Tax(400.0)
 
 
-def test_mixed_operations(calculator: TaxCalculator):
+def test_mixed_operations(calculator):
     operations = [
         create_operation_data("buy", 10.0, 100, 0.0, 10.0),
         create_operation_data("sell", 25.0, 1000, 5000.0, 20.0),
@@ -77,7 +77,7 @@ def test_mixed_operations(calculator: TaxCalculator):
     assert result[2] == Tax(0.0)
 
 
-def test_loss_carryover_across_multiple_profits(calculator: TaxCalculator):
+def test_loss_carryover_across_multiple_profits(calculator):
     operations = [
         create_operation_data("sell", 5.0, 2000, -10000.0, 10.0),
         create_operation_data("sell", 25.0, 1000, 4000.0, 20.0),
