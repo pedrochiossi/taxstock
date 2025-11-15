@@ -25,7 +25,6 @@ Option 1 — editable install (recommended for development):
 ```bash
 python -m venv .venv
 source .venv/bin/activate
-python -m pip install --upgrade pip
 python -m pip install -e .
 ```
 
