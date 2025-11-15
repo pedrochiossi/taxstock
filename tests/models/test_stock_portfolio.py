@@ -16,6 +16,13 @@ def test_portfolio_initializes_with_zero_values(portfolio):
     assert portfolio.total_profit == Decimal("0.00")
     assert portfolio.total_loss == Decimal("0.00")
 
+def test_portfolio_initializes_with_id(portfolio):
+    assert portfolio.id is not None
+
+def test_portfolio_has_unique_id(portfolio):
+    portfolio_2 = StockPortfolio()
+    assert portfolio.id != portfolio_2.id
+
 
 def test_buy_operation_updates_quantity(portfolio):
     operation = create_stock_operation("buy", 10.0, 100)
