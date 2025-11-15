@@ -66,8 +66,8 @@ The result is an output of one or more JSON arrays with calculated tax results (
 
 ## Testing
 
-This project includes an end-to-end test that runs the CLI with [subprocess](https://docs.python.org/3.13/library/subprocess.html). \
-All tests scenarios were derived from each case of the technical challenge documentation.
+This project includes unit tests and an end-to-end test that runs the CLI with [subprocess](https://docs.python.org/3.13/library/subprocess.html). \
+All e2e test scenarios were derived from each case of the technical challenge documentation.
 
 Tests were created with [pytest](https://docs.pytest.org/en/stable/).
 
@@ -75,8 +75,9 @@ To run tests locally:
 
 ```bash
 # from project root after activating your virtualenv
+pip install -e .
 pip install -r requirements.txt
-pytest
+pytest #or pytest -v for a verbose output
 ```
 
 ### Development notes
