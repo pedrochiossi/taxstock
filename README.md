@@ -51,7 +51,7 @@ echo '[{"operation":"buy","unit-cost":10.0,"quantity":100},{"operation":"sell","
 2. interactive input:
    Run the command: `taxstock`
 
-```txt
+```
 Enter your stock operations as a JSON array, for example:
 [{"operation": "buy", "unit-cost": 10.00, "quantity": 10000}]
 
@@ -60,7 +60,7 @@ Operations: <type or paste your JSON array here>
 
 The result is an output of one or more JSON arrays with calculated tax results (one object per operation):
 
-```bash
+```json
 [{"tax": 0.0},{"tax": 0.0},{"tax": 1000.0}]
 ```
 
