@@ -1,4 +1,4 @@
-## 💰 taxstock 🏛️
+## taxstock
 
 A simple CLI application to calculate tax from capital gains of stock market operations.
 
